@@ -21,11 +21,16 @@ AddEventHandler('policeKeyPressed', function()
 
     local xPlayers = ESX.GetExtendedPlayers("job", "police") -- Returns all xPlayers with the job police, but doesnt work on esx version before 1.2
   for _, xPlayer in pairs(xPlayers) do
-    TriggerClientEvent('sendNotificationToPolice', xPlayer.source, 'Ein Spieler hat den Panic Button gedrückt!')
+    TriggerClientEvent('showPoliceNotification', xPlayer.source, 'Ein Spieler hat den Panic Button gedrückt!') -- this event was wrong in the old code
   end
 end)
 
-RegisterServerEvent('sendNotificationToPolice')
-AddEventHandler('sendNotificationToPolice', function(message)
-    TriggerClientEvent('showPoliceNotification', -1, message)
-end)
+-- RegisterServerEvent('sendNotificationToPolice')
+-- AddEventHandler('sendNotificationToPolice', function(message)
+--     -- this event sends a message to "everyone" thats what -1 stands for. (all ids)
+
+--     -- i woould rewrite it like this:
+
+
+--     --TriggerClientEvent('showPoliceNotification', -1, message)
+-- end)

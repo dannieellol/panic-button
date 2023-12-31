@@ -57,7 +57,7 @@ Citizen.CreateThread(function()
                 Citizen.Wait(2000)
                 isCooldownActive = false
             elseif isCooldownActive then
-                TriggerEvent('showPoliceNotification', 'Du musst warten, um wieder den Panic Button drücken zu können!')
+                -- TriggerEvent('showPoliceNotification', 'Du musst warten, um wieder den Panic Button drücken zu können!') why here serverside?
             end
         end
     end
