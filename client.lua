@@ -16,7 +16,7 @@ Citizen.CreateThread(function()
 
         local xPlayer = ESX.GetPlayerData()
 
-        if xPlayer.job and xPlayer.job.name == "police" then
+        if xPlayer?.job?.name == "police" then
             if IsControlJustPressed(0, 38) and not isCooldownActive then
                 TriggerServerEvent('policeKeyPressed')
                 isCooldownActive = true
@@ -31,7 +31,7 @@ end)
 
 RegisterNetEvent('policeKeyPressedClient')
 AddEventHandler('policeKeyPressedClient', function()
-    local playerPed = PlayerId()
+    local playerPed = PlayerPedId()
 
     TriggerServerEvent('sendNotificationToPolice', 'Ein Spieler hat den Panic Button gedrückt!')
     showInfobar('Drücke ~b~[E]~s~, um einen Wegpunkt zu setzen')
