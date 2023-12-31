@@ -1,3 +1,27 @@
+-- gets framework
+if (GetResourceState("es_extended") == "started") then
+  if (exports["es_extended"] and exports["es_extended"].getSharedObject) then
+    ESX = exports["es_extended"]:getSharedObject()
+  else
+    TriggerEvent("esx:getSharedObject", function(obj) ESX = obj end)
+  end
+end
+
+--function to show the notification to police
+function ShowNotification(text)
+    SetNotificationTextEntry('STRING')
+    AddTextComponentString(text)
+    DrawNotification(false, true)
+end
+-- function to show the infobar
+function showInfobar(msg)
+    CurrentActionMsg = msg
+    SetTextComponentFormat('STRING')
+    AddTextComponentString(CurrentActionMsg)
+    DisplayHelpTextFromStringLabel(0, 0, 1, -1)
+end
+
+
 -- what happens when the police presses the key,
 -- this could also be a function, which is better but hey, as long as it works. it works.
 RegisterNetEvent('policeKeyPressedClient')
@@ -18,28 +42,9 @@ RegisterNetEvent('showPoliceNotification')
 AddEventHandler('showPoliceNotification', function(message)
     ShowNotification(message)
 end)
---function to show the notification to police
-function ShowNotification(text)
-    SetNotificationTextEntry('STRING')
-    AddTextComponentString(text)
-    DrawNotification(false, true)
-end
--- function to show the infobar
-function showInfobar(msg)
-    CurrentActionMsg = msg
-    SetTextComponentFormat('STRING')
-    AddTextComponentString(CurrentActionMsg)
-    DisplayHelpTextFromStringLabel(0, 0, 1, -1)
-end
 
--- gets framework
-if (GetResourceState("es_extended") == "started") then
-  if (exports["es_extended"] and exports["es_extended"].getSharedObject) then
-    ESX = exports["es_extended"]:getSharedObject()
-  else
-    TriggerEvent("esx:getSharedObject", function(obj) ESX = obj end)
-  end
-end
+
+
 --thread for pressing the button
 Citizen.CreateThread(function()
     while true do
