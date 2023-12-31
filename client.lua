@@ -1,4 +1,3 @@
-local isCooldownActive = false
 if (GetResourceState("es_extended") == "started") then
   if (exports["es_extended"] and exports["es_extended"].getSharedObject) then
     ESX = exports["es_extended"]:getSharedObject()
@@ -15,7 +14,6 @@ Citizen.CreateThread(function()
         Citizen.Wait(0)
 
         local xPlayer = ESX.GetPlayerData()
-
         if xPlayer?.job?.name == "police" then
             if IsControlJustPressed(0, 38) and not isCooldownActive then
                 TriggerServerEvent('policeKeyPressed')
