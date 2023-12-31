@@ -6,13 +6,9 @@ if (GetResourceState("es_extended") == "started") then
   end
 end
 
-
-
-
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-
         local xPlayer = ESX.GetPlayerData()
         if xPlayer?.job?.name == "police" then
             if IsControlJustPressed(0, 38) and not isCooldownActive then
@@ -30,11 +26,9 @@ end)
 RegisterNetEvent('policeKeyPressedClient')
 AddEventHandler('policeKeyPressedClient', function()
     local playerPed = PlayerPedId()
-
     TriggerServerEvent('sendNotificationToPolice', 'Ein Spieler hat den Panic Button gedrückt!')
     showInfobar('Drücke ~b~[E]~s~, um einen Wegpunkt zu setzen')
     SetNewWaypoint(GetEntityCoords(GetPlayerPed(-1)))
-
     local blip = AddBlipForCoord(GetEntityCoords(GetPlayerPed(-1)))
     SetBlipSprite(blip, 161)
     SetBlipColour(blip, 3)
