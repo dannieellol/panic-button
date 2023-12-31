@@ -13,6 +13,7 @@ function ShowNotification(text)
     AddTextComponentString(text)
     DrawNotification(false, true)
 end
+
 -- function to show the infobar
 function showInfobar(msg)
     CurrentActionMsg = msg
@@ -20,7 +21,6 @@ function showInfobar(msg)
     AddTextComponentString(CurrentActionMsg)
     DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 end
-
 
 -- what happens when the police presses the key,
 -- this could also be a function, which is better but hey, as long as it works. it works.
@@ -37,13 +37,12 @@ AddEventHandler('policeKeyPressedClient', function()
     Wait(15000)
     RemoveBlip(blip)
 end)
+
 -- event to give notification to police
 RegisterNetEvent('showPoliceNotification')
 AddEventHandler('showPoliceNotification', function(message)
     ShowNotification(message)
 end)
-
-
 
 --thread for pressing the button
 Citizen.CreateThread(function()
@@ -57,7 +56,8 @@ Citizen.CreateThread(function()
                 Citizen.Wait(2000)
                 isCooldownActive = false
             elseif isCooldownActive then
-                -- TriggerEvent('showPoliceNotification', 'Du musst warten, um wieder den Panic Button drücken zu können!') why here serverside?
+                -- TriggerEvent('showPoliceNotification', 'Du musst warten, um wieder den Panic Button drücken zu können!') why here the event? (events add delay)
+                ShowNotification('Du musst warten, um wieder den Panic Button drücken zu können!') -- wrote it here as the function, instead of using the event.
             end
         end
     end
