@@ -1,23 +1,31 @@
-ESX = nil
-
-TriggerEvent('esx:getSharedObject', function(obj)
-    ESX = obj
-end)
-
+-- gets framework
+if (GetResourceState("es_extended") == "started") then
+  if (exports["es_extended"] and exports["es_extended"].getSharedObject) then
+    ESX = exports["es_extended"]:getSharedObject()
+  else
+    TriggerEvent("esx:getSharedObject", function(obj) ESX = obj end)
+  end
+end
+-- this happens wen a player presses the panic button key,
 RegisterServerEvent('policeKeyPressed')
 AddEventHandler('policeKeyPressed', function()
-    local xPlayers = ESX.GetPlayers()
+    -- local xPlayers = ESX.GetPlayers() -- gets all players
 
-    for _, player in ipairs(xPlayers) do
-        local xPlayer = ESX.GetPlayerFromId(player)
+    -- for _, player in ipairs(xPlayers) do
+    --     local xPlayer = ESX.GetPlayerFromId(player)
 
-        if xPlayer.job.name == "police" then
-            TriggerClientEvent('sendNotificationToPolice', player, 'Ein Spieler hat den Panic Button gedrückt!')
-        end
-    end
+    --     if xPlayer.job.name == "police" then
+    --         TriggerClientEvent('sendNotificationToPolice', player, 'Ein Spieler hat den Panic Button gedrückt!')
+    --     end
+    -- end
+    local xPlayers = ESX.GetExtendedPlayers("job", "police") -- Returns all xPlayers with the job police, but doesnt work on esx version before 1.2
+  for _, xPlayer in pairs(xPlayers) do
+    TriggerClientEvent('showPoliceNotification', xPlayer.source, 'Ein Spieler hat den Panic Button gedrückt!') -- this event was wrong in the old code and referred to an extra event that wasnt needed
+  end
 end)
 
-RegisterServerEvent('sendNotificationToPolice')
-AddEventHandler('sendNotificationToPolice', function(message)
-    TriggerClientEvent('showPoliceNotification', -1, message)
-end)
+-- RegisterServerEvent('sendNotificationToPolice')
+-- AddEventHandler('sendNotificationToPolice', function(message)
+--     -- this event sends a message to "everyone" thats what -1 stands for. (all ids) which you dont want..
+--     --TriggerClientEvent('showPoliceNotification', -1, message)
+-- end)
